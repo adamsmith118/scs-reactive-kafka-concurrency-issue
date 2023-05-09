@@ -16,6 +16,8 @@ Boot: 3.0.6
 The [Reactive Kafka Binder documentation](https://docs.spring.io/spring-cloud-stream/docs/current/reference/html/spring-cloud-stream-binder-kafka.html#_concurrency) suggests it should be possible to set consumer concurrency above 1.  
 The binder should then create the correct number of `KafkaReceiver` as per this value.
 
+Given this config:
+
 ```yaml
     stream:
       bindings:
@@ -26,7 +28,7 @@ The binder should then create the correct number of `KafkaReceiver` as per this 
             concurrency: 2
 ```
 
-Instead, an error is thrown:
+An error is thrown:
 
 ```Concurrency > 1 is not supported by reactive consumer, given that project reactor maintains its own concurrency mechanism. Was '...test-in-0.consumer.concurrency=2'```
 
