@@ -1,0 +1,37 @@
+spring:
+  cloud:
+    function:
+      autodetect: false
+      definition: test
+    stream:
+      bindings:
+        test-in-0:
+          destination: test
+          binder: reactorKafka
+          consumer:
+            concurrency: 2
+      kafka:
+        binder:
+          enable-observation: true
+          auto-create-topics: false
+          brokers: localhost:9092
+          consumer-properties:
+            schema:
+              registry:
+                url: http://localhost:8081
+          producer-properties:
+            schema:
+              registry:
+                url: http://localhost:8081
+        bindings:
+          test-in-0:
+            consumer:
+              configuration:
+                key:
+                  deserializer: org.apache.kafka.common.serialization.StringDeserializer
+                specific:
+                  avro:
+                    reader: true
+                value:
+                  deserializer: org.apache.kafka.common.serialization.StringDeserializer
+              start-offset: earliest
